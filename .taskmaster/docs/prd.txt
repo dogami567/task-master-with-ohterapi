@@ -1,0 +1,22 @@
+
+# Claude Task Master - Product Requirements Document
+
+<PRD>
+# Technical Architecture  
+
+## 3. CLI Usage
+- The application should be executable via Node.js from the command line.
+- **Example Command**: `node index.js`
+- **Expected Output**: 
+  ```
+  Your fortune for today:
+  > You will find a forgotten treasure.
+  ```
+
+## 4. Technical Requirements
+- **Language**: Node.js
+- **Dependencies**: None. This is a vanilla Node.js project.
+- **File Structure**:
+  - `fortune-cli/`
+    - `index.js` (The main application script)
+    - `package.json` (Basic project metadata)

@@ -1,0 +1,149 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 105,
+        "title": "Setup Project Directory and package.json",
+        "description": "Initialize the Node.js project by creating the specified directory structure and a basic package.json file for metadata.",
+        "status": "pending",
+            "dependencies": [],
+        "priority": "high",
+        "details": "Create the root directory `fortune-cli`. Inside this directory, run `npm init -y` to generate a default `package.json`. You can then edit this file to set the name to `fortune-cli` and add a simple description like 'A simple CLI to tell your fortune.'",
+        "testStrategy": "Verify that the `fortune-cli` directory exists and contains a valid `package.json` file. The contents of `package.json` should reflect the project's metadata."
+      },
+      {
+        "id": 106,
+        "title": "Create index.js Application Entry Point",
+        "description": "Create the main application script file, `index.js`, inside the `fortune-cli` directory as specified in the PRD.",
+        "status": "pending",
+        "dependencies": [
+          105
+        ],
+        "priority": "high",
+        "details": "Inside the `fortune-cli` directory, create an empty file named `index.js`. This file will contain the core logic of the application. Command: `touch fortune-cli/index.js`.",
+        "testStrategy": "Check for the existence of the `fortune-cli/index.js` file. Running `node fortune-cli/index.js` should execute without errors (though it won't do anything yet)."
+      },
+      {
+        "id": 107,
+        "title": "Implement Fortune Data Source",
+        "description": "Define a static, hardcoded list of fortune strings within the `index.js` file to serve as the application's data source.",
+        "status": "pending",
+        "dependencies": [
+          106
+        ],
+        "priority": "medium",
+        "details": "In `index.js`, declare a constant array named `fortunes` and populate it with several fortune strings. Example:\n```javascript\nconst fortunes = [\n  \"You will find a forgotten treasure.\",\n  \"A new opportunity will arise unexpectedly.\",\n  \"Your kindness will lead to a surprising reward.\",\n  \"Look for the good in every situation.\",\n  \"Success is just around the corner.\"\n];\n```",
+        "testStrategy": "Code review of `index.js` to ensure the `fortunes` array is correctly defined as a non-empty array of strings."
+      },
+      {
+        "id": 108,
+        "title": "Implement Random Fortune Selection Logic",
+        "description": "Write the logic to randomly select a single fortune string from the `fortunes` array.",
+        "status": "pending",
+            "dependencies": [
+          107
+        ],
+        "priority": "medium",
+        "details": "Use the `Math.random()` function in combination with the length of the `fortunes` array to generate a random index. Then, use this index to retrieve a fortune from the array. \n```javascript\n// Assumes 'fortunes' array exists\nconst randomIndex = Math.floor(Math.random() * fortunes.length);\nconst selectedFortune = fortunes[randomIndex];\n```",
+        "testStrategy": "Execute the selection logic multiple times and log the output. Verify that the selected fortune is always a valid member of the `fortunes` array and that different fortunes are selected over multiple runs."
+      },
+      {
+        "id": 109,
+        "title": "Implement Console Output Formatting",
+        "description": "Format and print the selected fortune to the console, ensuring the output exactly matches the multi-line format specified in the PRD.",
+        "status": "pending",
+            "dependencies": [
+          108
+        ],
+        "priority": "medium",
+        "details": "Use `console.log()` to print the output. The first call will print the static header 'Your fortune for today:'. The second call will print the fortune prefixed with '> '. \n```javascript\n// Assumes 'selectedFortune' variable exists\nconsole.log('Your fortune for today:');\nconsole.log(`> ${selectedFortune}`);\n```",
+        "testStrategy": "Run the script. Capture the output and verify it strictly adheres to the format:\nLine 1: `Your fortune for today:`\nLine 2: `> [fortune text]`\nThis includes the exact text, spacing, and newline character."
+      },
+      {
+        "id": 110,
+        "title": "Integrate and Finalize Main Application Logic",
+        "description": "Combine all implemented parts (data source, selection, formatting) into a single, executable script in `index.js` that runs on `node index.js`.",
+        "status": "pending",
+            "dependencies": [
+          109
+        ],
+        "priority": "high",
+        "details": "Structure the code in `index.js` so that it defines the fortunes, selects one randomly, and then prints it in the correct format. The entire logic should be self-contained within this file and execute upon running the script.",
+        "testStrategy": "From the terminal, navigate to the `fortune-cli` directory and run `node index.js`. The command must complete without errors and print a randomly selected fortune in the specified format to the standard output."
+      },
+      {
+        "id": 111,
+        "title": "Add Shebang for Direct Script Execution",
+        "description": "Add a shebang line to `index.js` to allow it to be run directly as an executable from the command line.",
+        "status": "pending",
+            "dependencies": [
+          110
+        ],
+        "priority": "low",
+        "details": "Add the line `#!/usr/bin/env node` to the very top of the `index.js` file. This tells the system to use the Node.js interpreter to run the script.",
+        "testStrategy": "In a Unix-like terminal, grant execute permissions to the script using `chmod +x index.js`. Then, run the script directly with `./index.js`. The output should be identical to running `node index.js`."
+      },
+      {
+        "id": 112,
+        "title": "Implement Robustness Check for Empty Data",
+        "description": "Add a defensive check to ensure the application handles the edge case of an empty or non-existent fortunes array gracefully.",
+            "status": "pending",
+            "dependencies": [
+          108
+        ],
+        "priority": "low",
+        "details": "Before attempting to select a fortune, add a condition to check if the `fortunes` array is empty or not an array. If it is, print an informative error message to `console.error` and exit the process with a non-zero status code.\n```javascript\nif (!Array.isArray(fortunes) || fortunes.length === 0) {\n  console.error('Error: Fortune list is empty or invalid.');\n  process.exit(1);\n}\n```",
+        "testStrategy": "Temporarily modify `index.js` to use an empty array (`const fortunes = []`). Run the script and verify that it prints the specified error message and exits. Restore the original array afterwards."
+      },
+      {
+        "id": 113,
+        "title": "Create a README.md for Project Documentation",
+        "description": "Add a `README.md` file to the project root to explain what the project is and how to run it.",
+            "status": "pending",
+            "dependencies": [
+          105
+        ],
+        "priority": "low",
+        "details": "Create a file named `README.md` in the `fortune-cli` directory. The file should be in Markdown format and include a title (e.g., '# Fortune CLI'), a brief description, and a 'Usage' section that shows the command `node index.js`.",
+        "testStrategy": "Review the rendered `README.md` file (e.g., on GitHub or with a local Markdown viewer) to ensure it is clear, well-formatted, and accurately describes how to use the application."
+      },
+      {
+        "id": 114,
+        "title": "Final Code Review and Linting",
+        "description": "Perform a final quality check on the codebase. Ensure code is clean, well-commented where necessary, and adheres to all PRD requirements.",
+            "status": "pending",
+            "dependencies": [
+          110,
+          111,
+          112,
+          113
+        ],
+        "priority": "medium",
+        "details": "Review `index.js` and `package.json` for any issues. Check for consistent variable naming, proper indentation, and removal of any temporary debugging code (e.g., extra `console.log` statements). Ensure the final product is lean and meets the 'no dependencies' requirement.",
+        "testStrategy": "Perform a final execution of the script via `node index.js` and `./index.js` (after `chmod +x`) to confirm all functionality is working as expected. A peer code review is recommended."
+      }
+    ]
+  },
+  "test-tag": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Implement TTS Flag for Taskmaster Commands",
+        "description": "Add text-to-speech functionality to taskmaster commands with configurable voice options and audio output settings.",
+        "details": "Implement TTS functionality including:\n- Add --tts flag to all relevant taskmaster commands (list, show, generate, etc.)\n- Integrate with system TTS engines (Windows SAPI, macOS say command, Linux espeak/festival)\n- Create TTS configuration options in the configuration management system\n- Add voice selection options (male/female, different languages if available)\n- Implement audio output settings (volume, speed, pitch)\n- Add TTS-specific error handling for cases where TTS is unavailable\n- Create fallback behavior when TTS fails (silent failure or text output)\n- Support for reading task titles, descriptions, and status updates aloud\n- Add option to read entire task lists or individual task details\n- Implement TTS for command confirmations and error messages\n- Create TTS output formatting to make spoken text more natural (removing markdown, formatting numbers/dates appropriately)\n- Add configuration option to enable/disable TTS globally\n<info added on 2025-06-14T21:55:53.499Z>\nAdd comprehensive testing strategy for TTS functionality:\n\n**TTS Testing Requirements:**\n- Test TTS flag functionality across all commands (list, show, generate) with various voice configurations\n- Validate TTS engine integration on different platforms (Windows SAPI, macOS say, Linux espeak/festival)\n- Test voice selection options and audio output settings (volume, speed, pitch) with edge cases\n- Verify TTS error handling when engines are unavailable or fail\n- Test fallback behavior scenarios (silent failure vs text output)\n- Validate TTS output formatting for natural speech (markdown removal, number/date pronunciation)\n- Test global TTS enable/disable configuration settings\n- Verify TTS works correctly with task titles, descriptions, and status updates of varying lengths and complexity\n- Test TTS performance with large task lists and individual task details\n- Validate TTS for command confirmations and error messages across different error scenarios\n\n**Automated TTS Test Cases:**\n- Enable TTS flag and verify audio output generation without errors\n- Test each supported TTS engine with fallback when primary engine fails\n- Validate configuration persistence for TTS settings across application restarts\n- Test TTS with special characters, long text, and multilingual content\n- Verify TTS integration doesn't interfere with normal command execution or file operations\n- Test concurrent TTS operations and resource management\n- Validate TTS accessibility compliance and user experience consistency\n</info added on 2025-06-14T21:55:53.499Z>\n<info added on 2025-06-14T22:07:04.840Z>\n**Duplicate Save Prevention Testing for TTS Implementation:**\n\nSince TTS functionality involves configuration persistence and potential concurrent operations, implement specific tests to prevent duplicate saves in the TTS context:\n\n- Test TTS configuration saves to prevent duplicate entries in configuration files when users rapidly change voice settings, volume, or other audio parameters\n- Validate that TTS engine initialization doesn't create duplicate configuration entries when switching between different TTS engines (Windows SAPI, macOS say, Linux espeak)\n- Test concurrent TTS operations to ensure audio output settings aren't duplicated when multiple commands with --tts flag run simultaneously\n- Verify that TTS preference saves are atomic and don't result in corrupted or duplicate configuration data during rapid user interactions\n- Implement unique constraint checks for TTS configuration entries to prevent duplicate voice profiles or audio settings\n- Test TTS configuration persistence across application restarts to ensure settings aren't duplicated on reload\n- Validate that TTS error logging doesn't create duplicate log entries when TTS engines fail or fallback mechanisms activate\n- Test edge cases where users rapidly toggle global TTS enable/disable settings to prevent duplicate configuration states\n- Ensure TTS-related task metadata (like audio output preferences per task) doesn't create duplicate entries in tasks.json\n- Implement locking mechanisms for TTS configuration file operations to prevent race conditions during concurrent access\n\nThis testing should be integrated with the existing TTS test strategy to ensure robust duplicate prevention across all TTS-related save operations.\n</info added on 2025-06-14T22:07:04.840Z>\n<info added on 2025-06-14T22:08:10.995Z>\n**Claude API Integration Testing for TTS Commands:**\n\nAdd specific testing requirements for Claude API integration within the TTS implementation context:\n\n- Test Claude API connectivity when generating TTS-enabled task content to ensure API calls don't interfere with audio output generation\n- Validate Claude API authentication and error handling when TTS commands request AI-generated content with --tts flag enabled\n- Test Claude API response parsing and integration with TTS output formatting to ensure AI-generated text is properly converted for speech synthesis\n- Verify Claude API token usage tracking doesn't conflict with TTS configuration persistence mechanisms\n- Test concurrent operations where Claude API calls and TTS audio generation occur simultaneously\n- Validate Claude API retry and backoff logic works correctly when TTS commands fail and need to regenerate content\n- Test Claude API integration with task generation workflows that include TTS output requirements\n- Ensure Claude API error messages are properly formatted for TTS output when --tts flag is enabled\n- Test Claude API model parameter configuration persistence alongside TTS configuration settings\n- Validate that Claude API failures gracefully fallback without breaking TTS functionality for existing task content\n- Test environment variable handling for ANTHROPIC_API_KEY in conjunction with TTS engine configuration\n- Verify Claude API integration logging doesn't create conflicts with TTS error logging mechanisms\n\nThis testing should ensure seamless integration between Claude API functionality and TTS features without interference or duplicate save issues.\n</info added on 2025-06-14T22:08:10.995Z>\n<info added on 2025-06-14T22:10:22.106Z>\n**Final Duplicate Save Testing Protocol - Research Session 6/14/2025:**\n\n**Comprehensive Test Environment Setup:**\n- Create clean test environment with known state of tasks.json and TTS configuration files\n- Back up current tasks.json, TTS settings, and Claude API configuration before testing\n- Ensure all TTS engines and Claude API connectivity are functional for comprehensive testing\n\n**Duplicate Save Test Scenarios for TTS Implementation:**\n- Test saving TTS configuration with identical voice settings to verify no duplicate entries\n- Attempt simultaneous TTS configuration saves while audio output is active\n- Test Claude API task generation with --tts flag to ensure no duplicate task entries in tasks.json\n- Validate TTS preference persistence doesn't create duplicate configuration entries during rapid setting changes\n- Test concurrent TTS operations with multiple commands to verify no duplicate audio output settings\n- Simulate race conditions between TTS configuration saves and Claude API calls\n\n**Manual and Automated Test Execution:**\n- Execute TTS commands with --tts flag while monitoring tasks.json for duplicate entries\n- Test Claude API integration with TTS-enabled commands to verify single task creation\n- Validate TTS configuration file integrity after multiple rapid setting changes\n- Test TTS error logging to ensure no duplicate log entries during engine failures\n- Verify TTS-related task metadata saves don't create duplicate entries\n\n**Edge Case Testing for TTS Context:**\n- Test TTS configuration saves with minor variations (case sensitivity, whitespace) in voice names\n- Validate duplicate detection with similar TTS settings across different engines\n- Test large-scale TTS operations to ensure performance and correctness\n- Verify TTS global enable/disable toggle doesn't create duplicate configuration states\n\n**Validation and Documentation:**\n- Monitor TTS configuration files, tasks.json, and logs for any duplicate entries\n- Document test results in provided table format with TTS-specific scenarios\n- Verify error handling provides clear feedback for TTS-related duplicate save attempts\n- Confirm regression testing covers all TTS functionality without introducing new duplicate save issues\n- Complete stakeholder confirmation before closing duplicate save testing for TTS implementation\n</info added on 2025-06-14T22:10:22.106Z>",
+        "testStrategy": "Test TTS functionality across different operating systems (Windows, macOS, Linux). Verify that the --tts flag works with all major commands. Test voice configuration options and ensure audio output settings are properly applied. Test error handling when TTS services are unavailable. Verify that text formatting for speech is natural and understandable. Test with various task content types including special characters, code snippets, and long descriptions. Ensure TTS can be disabled and enabled through configuration.",
+        "status": "pending",
+        "dependencies": [
+          16
+        ],
+        "priority": "medium",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-06-14T21:30:21.214Z",
+      "updated": "2025-06-14T21:31:06.388Z",
+      "description": "Tag created on 6/14/2025"
+    }
+  }
+}
